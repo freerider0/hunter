@@ -1,6 +1,6 @@
 export const getLocalities = async () => {
     try {
-        const response = await fetch('http://localhost:3000/api/data/localidades');
+        const response = await fetch('http://164.90.182.86:3000/api/data/localidades');
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
@@ -14,7 +14,7 @@ export const getLocalities = async () => {
 
 export const getPropertyTypes = async () => {
     try {
-        const response = await fetch('http://localhost:3000/api/dictionaries/propertyTypes');
+        const response = await fetch('http://164.90.182.86:3000/api/dictionaries/propertyTypes');
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }

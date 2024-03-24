@@ -1,7 +1,7 @@
 export const getPropertyData = async (platformHash) => {
     try {
-        console.log('url', 'http://localhost:3000/api/property/' + platformHash)
-        const propertyDataResponse = await fetch('http://localhost:3000/api/property/' + platformHash);
+        console.log('url', 'http://164.90.182.86:3000/api/property/' + platformHash)
+        const propertyDataResponse = await fetch('http://164.90.182.86:3000/api/property/' + platformHash);
         if (!propertyDataResponse.ok) {
             throw new Error('Network response was not ok');
         }
@@ -26,7 +26,7 @@ export const getProperties = async ({pagination, sorting, filters}) => {
     }
 
     // Base URL
-    let url = `http://localhost:3000/api/property/listing?limit=${itemsPerPageUrlParam}&page=${currentPageUrlParam}`;
+    let url = `http://164.90.182.86:3000/api/property/listing?limit=${itemsPerPageUrlParam}&page=${currentPageUrlParam}`;
 
     // Añadir parámetros de filtro si existen
 
@@ -70,7 +70,7 @@ export const getProperties = async ({pagination, sorting, filters}) => {
 
 export const getHashOfFilteredProperties = async ({ localidad, precioMin, precioMax, portal, abstenerse }) => {
     // Base URL
-    let baseUrl = `http://localhost:3000/api/property/get-hash-of-filtered-properties`;
+    let baseUrl = `http://164.90.182.86:3000/api/property/get-hash-of-filtered-properties`;
 
     // Inicializar un array para almacenar partes de la cadena de consulta
     let queryParams = [];
@@ -105,7 +105,7 @@ export const getHashOfFilteredProperties = async ({ localidad, precioMin, precio
 export const setPropertiesReadyForSearchForContactDetails = async (propertyHashesArray) => {
     console.log('sending...', propertyHashesArray)
     try {
-        const url = 'http://localhost:3000/api/property/set-properties-ready-for-search-for-contact-details';
+        const url = 'http://164.90.182.86:3000/api/property/set-properties-ready-for-search-for-contact-details';
         const options = {
             method: 'POST',
             headers: {
