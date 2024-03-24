@@ -15,7 +15,7 @@ function AutocompleteSelect({ options, setValue, optionFilterid, filters }) {
     }, [options]);
 
     function handleOptionClick(option) {
-        setValue(option); // Establece el valor seleccionado para ser utilizado fuera del componente
+       // setValue(option); // Establece el valor seleccionado para ser utilizado fuera del componente
         setValue([optionFilterid], option)
         //setValue({...filters,  [optionFilterid]: option})
         setIsListVisible(false); // Oculta las opciones después de seleccionar una
@@ -43,10 +43,13 @@ function AutocompleteSelect({ options, setValue, optionFilterid, filters }) {
         setIsListVisible(true);
     }
 
-    function clearInput() {
-        setValue({...filters,  [optionFilterid]: ''}); // Limpia el valor seleccionado
+    function clearInput(e) {
+        console.log('claring')
+        e.stopPropagation()
+        setValue([optionFilterid], ''); // Limpia el valor seleccionado
+        setInputValue('')
         setFilteredOptions(options.data); // Restaura las opciones filtradas a su estado inicial
-        setIsListVisible(false); // Oculta las opciones
+        //setIsListVisible(false); // Oculta las opciones
     }
 
     return (
@@ -59,7 +62,7 @@ function AutocompleteSelect({ options, setValue, optionFilterid, filters }) {
                     onFocus={handleFocus}
                     onBlur={() => setTimeout(() => setIsListVisible(false), 200)} // Permite tiempo para seleccionar una opción antes de ocultar las opciones
                 />
-                <button onClick={clearInput} className={'AutoCompleteList-deleteOption'}>X</button>
+                <button onClick={(e)=>clearInput(e)} className={'AutoCompleteList-deleteOption'}>X</button>
             </div>
             {isListVisible && (
                 <ul className='AutoCompleteList-visible optionsContainer'>
