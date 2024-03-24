@@ -1,0 +1,42 @@
+.time-line{
+    flex-direction: column;
+}
+
+.time-line-month{
+    display: flex;
+    margin-top: 1rem;
+    align-items: flex-start;
+}
+
+.time-line-month-date{
+    font-size: 1.5rem;
+    margin-right: 1rem;
+
+}
+
+.time-line-event{
+    border-left: 4px solid blue;
+
+
+}
+
+.time-line_month-group-event-list_indivual-event{
+    border-left: 4px solid blue;
+    padding: 0.3rem;
+
+}
+
+.time-line_month-group-event-list{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.time-line-event-color-red{
+    color:red;
+}
+
+.time-line-event-color-green{
+    color:green;
+}
+

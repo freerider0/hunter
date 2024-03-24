@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizador Base64</title>
+</head>
+<body>
+<h2>Visualizador de Imagen Base64</h2>
+<textarea id="base64Input" placeholder="Pega aquí la cadena Base64" rows="4" style="width: 100%;"></textarea>
+<button onclick="cargarImagen()">Cargar Imagen</button>
+<hr>
+<img id="imagen" src="" alt="Imagen cargada" style="max-width: 100%;">
+
+<script>
+    function cargarImagen() {
+        var input = document.getElementById('base64Input').value.trim();
+        if (input) {
+            // Asume que la cadena ya incluye el prefijo necesario (data:image/png;base64,)
+            document.getElementById('imagen').src = input;
+        } else {
+            alert('Por favor, pega la cadena Base64 en el área de texto.');
+        }
+    }
+</script>
+</body>
+</html>

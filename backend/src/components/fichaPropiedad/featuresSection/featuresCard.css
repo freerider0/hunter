@@ -1,0 +1,53 @@
+.property-card-features {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 10px auto;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
+    width: 100%;
+}
+
+.property-link {
+    color: #007bff;
+    text-decoration: none;
+    margin-bottom: 20px;
+}
+
+.features-container {
+
+}
+
+.feature-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.feature-label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.feature-value {
+    text-align: center;
+}
+
+feature-color-condition { background-color: #34568B; color: #EAD2AC; } /* Azul cobalto */
+.feature-color-efficiency { background-color: #88B04B; color: #405D27; } /* Verde manzana */
+.feature-color-market { background-color: #6B5B95; color: #EAD2AC; } /* Púrpura amatista */
+.feature-color-area { background-color: #F7CAC9; color: #926F5B; } /* Rosa cuarzo */
+.feature-color-location { background-color: #92A8D1; color: #34568B; } /* Azul cielo */
+.feature-color-building { background-color: #955251; color: #F7CAC9; } /* Rojo terracota */
+.feature-color-bathroom { background-color: #B565A7; color: #EAD2AC; } /* Lila */
+.feature-color-floor { background-color: #009B77; color: #EAD2AC; } /* Verde esmeralda */
+.feature-color-rooms { background-color: #DD4124; color: #EAD2AC; } /* Rojo fiesta */
+.feature-color-quality { background-color: #D65076; color: #F7CAC9; } /* Rosa fucsia */
+.feature-color-kitchen { background-color: #45B8AC; color: #253746; } /* Turquesa */
+.feature-color-wc { background-color: #EFC050; color: #996B33; } /* Amarillo sol */

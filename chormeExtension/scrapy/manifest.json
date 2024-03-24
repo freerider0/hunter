@@ -1,0 +1,44 @@
+{
+  "manifest_version": 3,
+  "name": "Extension Dashboard",
+  "version": "1.0",
+  "permissions": [
+    "tabs",
+    "cookies",
+    "activeTab",
+    "storage",
+    "background"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "dashboard.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.fotocasa.es/*"],
+      "js": ["./helpers/form.js" ,"fotocasaParticular.js"]
+    },
+    {
+      "matches": ["*://*.yaencontre.com/*"],
+      "js": ["./helpers/form.js" ,"yaencontre.js"]
+    },
+    {
+      "matches": ["*://*.pisos.com/*"],
+      "js": ["./helpers/form.js" ,"pisos.js"]
+    },
+    {
+      "matches": ["*://*.entreparticulares.com/*"],
+      "js": ["./helpers/form.js" ,"entreParticulares.js"]
+    },
+    {
+      "matches": ["*://*.habitaclia.com/*"],
+      "js": ["./helpers/form.js" ,"habitaclia.js"]
+    }
+
+  ]
+}

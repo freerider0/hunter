@@ -1,0 +1,122 @@
+.pagina{
+    color: white;
+}
+
+.priceCard {
+    width: fit-content;
+    border-left: 1px solid #171717;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    padding: 1rem;
+    width: fit-content;
+}
+
+.priceCard h4{
+    text-align: center;
+    padding: 0rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top:0;
+    margin-bottom: 0;
+}
+
+.propertyPrice{
+    font-size: 5rem;
+}
+.calculations{
+    display: flex;
+    justify-content: space-between;
+}
+
+.bloque-precios{
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+}
+
+
+.absteners{
+    border-radius: 50%;
+}
+
+
+
+/* Base styling */
+body {
+    background-color: #121212; /* Dark background for contrast */
+    color: #E0E0E0; /* Light text for readability */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern, readable font */
+}
+
+
+
+/* Pagination base styling */
+/* Base del componente de paginación */
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 12px 24px;
+    border-radius: 12px;
+    color: #E0E0E0;
+}
+
+/* Botones */
+.pagination button, .pagination select, .pagination input {
+    background-color: #303030; /* Un fondo ligeramente más claro para contraste sutil */
+    border: none;
+    color: #B0B0B0; /* Texto en un tono de gris claro para suavizar */
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 0.875rem; /* Tamaño de letra estándar para botones */
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.pagination button:hover, .pagination select:hover, .pagination input:hover {
+    background-color: #3A3A3A; /* Iluminación sutil al pasar el mouse */
+    color: #FFFFFF;
+}
+
+
+
+/* Input de número con estilos específicos */
+.pagination input[type="number"] {
+    width: 5em; /* Se ajusta al contenido */
+    padding: 8px; /* Consistente con otros elementos */
+    margin-left: 1em;
+    font-size: 0.875rem; /* Consistente con botones */
+}
+
+/* Select */
+.pagination select {
+    cursor: pointer;
+}
+
+/* Texto y fuertes estilos */
+.pagination span, .pagination strong {
+    font-size: 1rem; /* Más grande para destacar información */
+}
+
+/* Texto de 'Página' con estilo sutil */
+.pagination div {
+    font-size: 0.875rem;
+    color: #A0A0A0;
+}
+
+/* Resaltando el número de página actual con un estilo sutil */
+.pagination strong {
+    color: #E0E0E0;
+    font-weight: bold;
+}
+
+/* Mejoras de accesibilidad */
+.pagination button:focus, .pagination select:focus, .pagination input:focus {
+    outline: 2px solid #757575; /* Sutil, para no desviar demasiado la atención */
+    outline-offset: 2px;
+}
+
+/* Para un toque de modernidad, podemos agregar una pequeña animación o transformación */
+.pagination button:active {
+    transform: scale(0.95); /* Efecto de pulsación */
+}

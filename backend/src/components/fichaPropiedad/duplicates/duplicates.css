@@ -1,0 +1,54 @@
+
+
+/* Estilo de la primera fila, para hacerla claramente clickeable */
+.duplicate-first-row {
+    cursor: pointer;
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 5px;
+    transition: background-color 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.duplicate-first-row:hover {
+    background-color: #494949;
+}
+
+/* Estilos para los enlaces */
+.duplicate-first-row a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.duplicate-first-row a:hover {
+    text-decoration: underline;
+}
+
+/* Estilos para los datos expandidos */
+.duplicate-data {
+    padding: 5px 10px;
+    margin: 5px 0;
+}
+
+/* Mejoras visuales para diferenciar las secciones y mejorar la lectura */
+.duplicate-data:not(:last-child) {
+    border-bottom: none;
+}
+
+/* Detalles adicionales para mejorar la experiencia visual */
+div {
+    transition: all 0.3s ease;
+}
+
+/* Añade un poco de sombra a los bloques para dar profundidad */
+.duplicate-first-row, .duplicate-data {
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Asegúrate de que los textos no estén demasiado pegados a los bordes */
+div {
+    padding-left: 15px;
+    padding-right: 15px;
+}

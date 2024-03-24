@@ -1,0 +1,45 @@
+version: '3.1'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: rumech
+      POSTGRES_PASSWORD: 1234
+    ports:
+      - "5432:5432"  # Expose PostgreSQL default port to the host
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U rumech"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8080:8080"
+
+  redis:
+    image: redis
+    restart: always
+    ports:
+      - "6379:6379"  # Expose Redis default port to the host
+
+  mongodb:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: rumech
+      MONGO_INITDB_ROOT_PASSWORD: 1234
+    ports:
+      - "27017:27017"  # Expose MongoDB default port to the host
+    volumes:
+      - mongodb-data:/data/db
+
+volumes:
+  db-data:
+  mongodb-data:
