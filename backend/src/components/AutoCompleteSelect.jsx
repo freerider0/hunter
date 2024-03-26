@@ -62,7 +62,7 @@ function AutocompleteSelect({ options, setValue, optionFilterid, filters }) {
             <div className="AutoCompleteList-input">
                 <input
                     type="text"
-                    value={inputValue}
+                    value={t(inputValue)}
                     onChange={handleInputChange}
                     onFocus={handleFocus}
                     onBlur={() => setTimeout(() => setIsListVisible(false), 200)}
