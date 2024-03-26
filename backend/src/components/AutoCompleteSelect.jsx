@@ -21,10 +21,11 @@ function AutocompleteSelect({ options, setValue, optionFilterid, filters }) {
 
     // Consider memoizing this handler if the component becomes complex.
     const handleOptionClick = (option) => {
-        // setValue was simplified based on the assumption of its functionality
-        // If `setValue` expects an object, consider revising based on actual usage
-        setValue({ [optionFilterid]: option });
-        setIsListVisible(false);
+        console.log('option clicked', option)
+        //setInputValue(option); // Establece el valor seleccionado para ser utilizado fuera del componente
+        setValue([optionFilterid], option)
+        //setValue({...filters,  [optionFilterid]: option})
+        //setIsListVisible(false); // Oculta las opciones después de seleccionar una
     };
 
     const handleInputChange = (event) => {
