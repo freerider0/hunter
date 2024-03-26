@@ -51,10 +51,12 @@ function AutocompleteSelect({ options, setValue, optionFilterid, filters }) {
     };
 
     const clearInput = (e) => {
-        e.stopPropagation();
-        setValue({ [optionFilterid]: '' });
-        setInputValue('');
-        setFilteredOptions(options.data);
+        console.log('blaring')
+        setValue([optionFilterid], '')
+
+      //  setValue([optionFilterid], '')
+
+        //setFilteredOptions(options.data);
     };
 
     return (
