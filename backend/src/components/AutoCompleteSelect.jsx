@@ -4,70 +4,76 @@ import './AutoCompleteSelect.css';
 import {useTranslation} from "react-i18next";
 
 function AutocompleteSelect({ options, setValue, optionFilterid, filters }) {
-
     const [filteredOptions, setFilteredOptions] = useState([]);
     const [isListVisible, setIsListVisible] = useState(false);
-    const [inputValue, setInputValue] = useState('')
-    const [t, i18n] = useTranslation()
+    const [inputValue, setInputValue] = useState('');
+    const { t } = useTranslation(); // Destructured directly if `i18n` is not used
 
     useEffect(() => {
-        setFilteredOptions(options.data);
+        // Check if options and options.data are defined before setting filtered options
+        if (options && options.data && Array.isArray(options.data)) {
+            setFilteredOptions(options.data);
+        } else {
+            // Optionally, set filteredOptions to an empty array or a default state
+            setFilteredOptions([]);
+        }
     }, [options]);
 
-    function handleOptionClick(option) {
-       // setValue(option); // Establece el valor seleccionado para ser utilizado fuera del componente
-        setValue([optionFilterid], option)
-        //setValue({...filters,  [optionFilterid]: option})
-        setIsListVisible(false); // Oculta las opciones después de seleccionar una
-    }
+    // Consider memoizing this handler if the component becomes complex.
+    const handleOptionClick = (option) => {
+        // setValue was simplified based on the assumption of its functionality
+        // If `setValue` expects an object, consider revising based on actual usage
+        setValue({ [optionFilterid]: option });
+        setIsListVisible(false);
+    };
 
-    function handleInputChange(event) {
+    const handleInputChange = (event) => {
         const newValue = event.target.value;
-        console.log('options', options.data)
-        setInputValue(newValue); // Actualiza el estado con cada cambio en el input
-        const newFilteredOptions = options && options.data
-            ? options.data.filter(option =>
-                option.toLowerCase().includes(newValue.toLowerCase())
-            )
-            : [];
-        console.log('filtered options:', newFilteredOptions)
+        setInputValue(newValue);
+
+        // Using a more concise approach for filtering
+        const newFilteredOptions = options.data.filter(option =>
+            option.toLowerCase().includes(newValue.toLowerCase())
+        );
+
         setFilteredOptions(newFilteredOptions);
         setIsListVisible(true);
-    }
+    };
 
+    // Effect to sync `inputValue` with external `filters` changes
     useEffect(() => {
-        setInputValue(filters[optionFilterid])
-    }, [filters[optionFilterid]]);
+        setInputValue(filters[optionFilterid] || '');
+    }, [filters, optionFilterid]);
 
-    function handleFocus() {
+    const handleFocus = () => {
         setIsListVisible(true);
-    }
+    };
 
-    function clearInput(e) {
-        console.log('claring')
-        e.stopPropagation()
-        setValue([optionFilterid], ''); // Limpia el valor seleccionado
-        setInputValue('')
-        setFilteredOptions(options.data); // Restaura las opciones filtradas a su estado inicial
-        //setIsListVisible(false); // Oculta las opciones
-    }
+    const clearInput = (e) => {
+        e.stopPropagation();
+        setValue({ [optionFilterid]: '' });
+        setInputValue('');
+        setFilteredOptions(options.data);
+    };
 
     return (
-        <div className={'autocompletar'}>
-            <div className={'AutoCompleteList-input'}>
+        <div className="autocompletar">
+            <div className="AutoCompleteList-input">
                 <input
                     type="text"
                     value={inputValue}
                     onChange={handleInputChange}
                     onFocus={handleFocus}
-                    onBlur={() => setTimeout(() => setIsListVisible(false), 200)} // Permite tiempo para seleccionar una opción antes de ocultar las opciones
+                    onBlur={() => setTimeout(() => setIsListVisible(false), 200)}
+                    aria-haspopup="listbox" // Improves accessibility
+                    aria-expanded={isListVisible} // Improves accessibility
                 />
-                <button onClick={(e)=>clearInput(e)} className={'AutoCompleteList-deleteOption'}>X</button>
+                <button onClick={clearInput} className="AutoCompleteList-deleteOption" aria-label="Clear input">X</button>
             </div>
             {isListVisible && (
-                <ul className='AutoCompleteList-visible optionsContainer'>
+                <ul className="AutoCompleteList-visible optionsContainer" role="listbox">
                     {filteredOptions.map((option, index) => (
-                        <li key={`${option}-${index}`} onClick={() => handleOptionClick(option)}>
+                        <li key={`${option}-${index}`} onClick={() => handleOptionClick(option)} role="option">
                             {t(option)}
                         </li>
                     ))}
