@@ -7,8 +7,8 @@ services:
     environment:
       POSTGRES_USER: rumech
       POSTGRES_PASSWORD: 1234
-    #ports:
-     # - "5432:5432"  # Expose PostgreSQL default port to the host
+    ports:
+      - "5432:5432"  # Expose PostgreSQL default port to the host
     volumes:
       - db-data:/var/lib/postgresql/data
     healthcheck:
@@ -35,8 +35,8 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: rumech
       MONGO_INITDB_ROOT_PASSWORD: 1234
-    #ports:
-      #- "27017:27017"  # Expose MongoDB default port to the host
+    ports:
+      - "27017:27017"  # Expose MongoDB default port to the host
     volumes:
       - mongodb-data:/data/db
 
