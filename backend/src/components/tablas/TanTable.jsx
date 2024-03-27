@@ -62,6 +62,8 @@ export function TanTable() {
     const setFilters = useStore((state) => state.setFilters)
 
 
+
+
     const defaultData = React.useMemo(() => [], [])
     const columns = [
         columnHelper.accessor('rejectionChance', {
@@ -188,6 +190,11 @@ export function TanTable() {
 
     })
 
+    useEffect(() => {
+        // Reset to the first page, remembering that page indices are zero-based
+        table.setPageIndex(0); // This should navigate to the first page
+    }, [filters.localidad, table]);
+
     const handleTdClick = (houseId) => {
         navigate(`/particular/${houseId}`);
     };
@@ -220,7 +227,7 @@ export function TanTable() {
                     {table.getHeaderGroups().map(headerGroup => (
                         <tr key={headerGroup.id}>
                             {headerGroup.headers.map(header => (
-                                <th key={header.id + 'aqui'} colSpan={header.colSpan}>
+                                <th key={header.id} colSpan={header.colSpan}>
                                     {header.isPlaceholder ? null : (
                                         <div
                                             className={

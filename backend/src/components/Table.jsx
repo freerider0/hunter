@@ -64,28 +64,11 @@ const DataTable = () => {
 
     });
 
-    useEffect(() => {
-        setTotalPages(data?.totalPages);
-        setTotalItems(data?.totalItems);
-    }, [data]);
-
-    useEffect(() => {
-        const fetchData = async () => {
-         //   const portalesResult = await fetch('http://localhost:3000/api/data/portales')
-          //  const portalesList = await portalesResult.json()
-         //   setPortales(portalesList.data)
-            const localidadesResult = await fetch('http://localhost:3000/api/data/localidades')
-            const localidadesList = await localidadesResult.json()
-            setLocalidades(localidadesList.data)
-        }
-
-         fetchData();
-    }, [currentPage, itemsPerPage, localidad, precioMin, precioMax, portal, abstenerse]);
 
     useEffect(() => {
         // Reinicia la página actual a 1 cuando localidad o portal cambien
         setCurrentPage(1);
-    }, [localidad, portal]);
+    }, [localidad]);
 
     const goToNextPage = () => {
         console.log('siguiente')
