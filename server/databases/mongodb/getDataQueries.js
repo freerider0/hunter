@@ -252,7 +252,7 @@ export async function getHashOfFilteredProperties({filters}) {
 
 
         return ({
-            data: properties.map(p => p), // Transformando los resultados para devolver solo los hashes
+            data: properties.map(p => p._id), // Transformando los resultados para devolver solo los hashes
         });
 
     } catch (err) {
