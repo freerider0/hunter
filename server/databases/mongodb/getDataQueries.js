@@ -248,7 +248,7 @@ export async function getHashOfFilteredProperties({filters}) {
         console.log(query)
 
         // Realizando la consulta sin limitar los resultados y seleccionando solo el campo necesario
-        const properties = await collection.find(query, { projection: { 'listing.platform_hash': 1, _id: 0 } }).toArray();
+        const properties = await collection.find(query, { projection: { '_id': 1 } }).toArray();
 
 
         return ({
