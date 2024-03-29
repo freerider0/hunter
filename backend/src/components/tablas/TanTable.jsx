@@ -70,8 +70,8 @@ const handleToggleFullSelection = async ()=>{
         }
         else{
             const hashes = await getHashOfFilteredProperties(filters)
-            console.log('hashes', hashes)
-            //toggleFullSelection(hashes)
+            console.log('hashes', hashes.data)
+            toggleFullSelection(hashes.data)
         }
 }
 
@@ -96,10 +96,12 @@ const handleToggleFullSelection = async ()=>{
                 />
             ),
             cell: ({row}) => (
+                <>
                 <IndeterminateCheckbox checked={row.getIsSelected()}
                                        disabled={!row.getCanSelect()}
                                        onChange={()=>setRowSelection(row.original._id)}
-                />
+                /> <div>{row.original._id}</div>
+                </>
             ),
         }),
 
