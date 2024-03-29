@@ -250,11 +250,10 @@ export async function getHashOfFilteredProperties({filters}) {
         // Realizando la consulta sin limitar los resultados y seleccionando solo el campo necesario
         const properties = await collection.find(query, { projection: { 'listing.platform_hash': 1, _id: 0 } }).toArray();
 
-        return (query)
-        /*
+
         return ({
             data: properties.map(p => p.listing.platform_hash), // Transformando los resultados para devolver solo los hashes
-        });*/
+        });
 
     } catch (err) {
         console.error('An error occurred:', err.message);
