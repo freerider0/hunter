@@ -197,7 +197,7 @@ export async function getProperties({page, limit, filters, sorting}) {
     }
 }
 
-export async function getHashOfFilteredProperties(filters) {
+export async function getHashOfFilteredProperties({filters}) {
     console.log(filters)
     try {
         const db = await getMongoDatabase('propdata');
