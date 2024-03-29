@@ -198,7 +198,7 @@ export async function getProperties({page, limit, filters, sorting}) {
 }
 
 export async function getHashOfFilteredProperties(filters) {
-    console.log('busca')
+    console.log(filters)
     try {
         const db = await getMongoDatabase('propdata');
         const collection = db.collection('property');
