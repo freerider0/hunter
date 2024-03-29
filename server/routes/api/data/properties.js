@@ -27,7 +27,6 @@ router.get('/types', async (req, res) => {
 });
 
 router.get('/get-hash-of-filtered-properties', async (req, res) => {
-
     const result = await getHashOfFilteredProperties(req.query)
     res.status(200).json(result)
 });

@@ -30,8 +30,36 @@ export const useStore = create((set, get) => ({
     })),
 
 // Estado inicial para la selección de filas, equivalente a useState({})
-    rowSelection: {1:true},
-    setRowSelection: (newSelection) => set({ rowSelection: newSelection }),
-    selectAllPages: (allItems) => set({ rowSelection: allItems }),
+    rowSelection: {},
+    setRowSelection: (id) => {
+        set((state) => {
+            const newSelection = { ...state.rowSelection };
+            if (newSelection[id]) {
+                // Si el id ya existe en rowSelection, borrarlo
+                delete newSelection[id];
+            } else {
+                // Si el id no existe en rowSelection, añadirlo
+                newSelection[id] = true;
+            }
+            return { rowSelection: newSelection };
+        });
+    },
+    toggleFullSelection: (allItems) => {
+        console.log('el id es:', allItems)
+        set((state) => {
+            const oldSelection = { ...state.rowSelection };
+            if (oldSelection.length > 0) {
+                // Si el id ya existe en rowSelection, borrarlo
+                return { rowSelection: {} }
+            } else {
+                let newSelection =  {}
+                allItems.forEach(item =>{
+                    newSelection[item] = true
+                })
+                // Si el id no existe en rowSelection, añadirlo
+                return { rowSelection: newSelection };
+            }
+        });
+    },
     clearSelection: () => set({ rowSelection: [] }),
 }));

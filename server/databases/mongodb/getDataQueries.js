@@ -197,7 +197,8 @@ export async function getProperties({page, limit, filters, sorting}) {
     }
 }
 
-export async function getHashOfFilteredProperties({ localidad, precioMin, precioMax, portal, abstenerse }) {
+export async function getHashOfFilteredProperties(filters) {
+    console.log('busca')
     try {
         const db = await getMongoDatabase('propdata');
         const collection = db.collection('property');
@@ -205,31 +206,51 @@ export async function getHashOfFilteredProperties({ localidad, precioMin, precio
         // Construyendo la consulta dinámicamente
         let query = {};
 
-        if (localidad) {
-            query['listing.ad3'] = localidad;
+        if(filters){
+            const filtersBase64 = filters;
+
+            // Decodificar de Base64 a una cadena UTF-8
+            const filtersJSON = Buffer.from(filtersBase64, 'base64').toString('utf-8');
+
+            // Decodificar la percent-encoding de URI
+            const decodedFiltersJSON = decodeURIComponent(filtersJSON);
+
+            // Convertir la cadena JSON decodificada en un objeto JavaScript
+            const filtersObj = JSON.parse(decodedFiltersJSON);
+
+
+            if (filtersObj.localidad) {
+                query['listing.ad3'] = filtersObj.localidad;
+            }
+
+            if (filtersObj.precioMin) {
+                query['price'] = { $gte: parseInt(filtersObj.precioMin, 10) };
+            }
+
+            if (filtersObj.precioMax) {
+                query['price'] = { ...query['price'], $lte: parseInt(filtersObj.precioMax, 10) };
+            }
+
+            if (filtersObj.portal) {
+                // Assuming 'portal' is a field or you have a way to filter by portal
+                query['portal'] = filtersObj.portal; // Replace 'portalField' with the actual field name
+            }
+
+            if (filtersObj.abstenerse) {
+                // Assuming 'abstenerse' is a field or you have a way to filter by it
+                query['abstenerse'] = filtersObj.abstenerse; // Replace 'abstenerseField' with the actual field name
+            }
+            if (filtersObj.propertyType) {
+                query['listing.assetType'] = filtersObj.propertyType;
+            }
         }
 
-        if (precioMin) {
-            query['listing.price'] = { $gte: parseInt(precioMin, 10) }; // Asegúrate de que el campo 'price' está correctamente anidado bajo 'listing'
-        }
-
-        if (precioMax) {
-            query['listing.price'] = { ...query['listing.price'], $lte: parseInt(precioMax, 10) }; // Asegúrate de que el campo 'price' está correctamente anidado bajo 'listing'
-        }
-
-        if (portal) {
-            // Asumiendo que 'portal' es un campo o tienes una forma de filtrar por portal
-            query['listing.portalField'] = portal; // Reemplaza 'portalField' con el nombre real del campo
-        }
-
-        if (abstenerse) {
-            // Asumiendo que 'abstenerse' es un campo o tienes una manera de filtrar por ello
-            query['listing.abstenerseField'] = abstenerse; // Reemplaza 'abstenerseField' con el nombre real del campo
-        }
+        console.log(query)
 
         // Realizando la consulta sin limitar los resultados y seleccionando solo el campo necesario
         const properties = await collection.find(query, { projection: { 'listing.platform_hash': 1, _id: 0 } }).toArray();
 
+        return (query)
         return ({
             data: properties.map(p => p.listing.platform_hash), // Transformando los resultados para devolver solo los hashes
         });

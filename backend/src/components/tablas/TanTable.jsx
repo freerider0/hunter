@@ -11,13 +11,13 @@ import {
 } from '@tanstack/react-table'
 import {useNavigate} from "react-router-dom";
 import {useQuery} from "@tanstack/react-query";
-import {getProperties} from "../../apiClient/properties.js";
+import {getHashOfFilteredProperties, getProperties} from "../../apiClient/properties.js";
 import {getLocalities, getPropertyTypes} from "../../apiClient/dictionaries.js";
 import '../../css/components/table.css'
 import AutoCompleteSelect from "../AutoCompleteSelect.jsx";
 import {useStore} from "../../store/store.js";
 
-const IndeterminateCheckbox = forwardRef(({indeterminate, onChange, ...rest}, ref) => {
+const IndeterminateCheckbox = forwardRef(({indeterminate, onClick, onChange, ...rest}, ref) => {
     const defaultRef = useRef();
     const resolvedRef = ref || defaultRef;
     const [t, i18n] = useTranslation()
@@ -27,7 +27,7 @@ const IndeterminateCheckbox = forwardRef(({indeterminate, onChange, ...rest}, re
     }, [indeterminate]);
 
     return (
-        <input type="checkbox" ref={resolvedRef} onChange={onChange} {...rest} />
+        <input type="checkbox" ref={resolvedRef} onChange={onChange} onClick={onClick} {...rest} />
     );
 });
 
@@ -57,11 +57,23 @@ export function TanTable() {
 
 
     const rowSelection = useStore((state) => state.rowSelection)
+    const toggleFullSelection = useStore((state) => state.toggleFullSelection)
+
     const setRowSelection = useStore((state) => state.setRowSelection)
     const filters = useStore((state) => state.filters)
     const setFilters = useStore((state) => state.setFilters)
 
-
+const handleToggleFullSelection = async ()=>{
+        const length = Object.keys(rowSelection).length
+        if(length > 0){
+            toggleFullSelection([])
+        }
+        else{
+            const hashes = await getHashOfFilteredProperties(filters)
+            console.log('hashes', hashes)
+            //toggleFullSelection(hashes)
+        }
+}
 
 
     const defaultData = React.useMemo(() => [], [])
@@ -78,7 +90,7 @@ export function TanTable() {
                         checked: table.getIsAllRowsSelected(),
                         indeterminate: table.getIsSomeRowsSelected(),
                         onChange: ()=>{
-                            console.log('hola')
+                            handleToggleFullSelection()
                         }
                     }}
                 />
@@ -86,7 +98,7 @@ export function TanTable() {
             cell: ({row}) => (
                 <IndeterminateCheckbox checked={row.getIsSelected()}
                                        disabled={!row.getCanSelect()}
-                                       onChange={row.getToggleSelectedHandler()}
+                                       onChange={()=>setRowSelection(row.original._id)}
                 />
             ),
         }),
@@ -171,6 +183,8 @@ export function TanTable() {
     const table = useReactTable({
         data: data?.data ?? defaultData,
         columns,
+        getRowId: (row)=> {
+            return row._id},
         getCoreRowModel: getCoreRowModel(),
         getSortedRowModel: getSortedRowModel(),
         manualPagination: true, //turn off client-side pagination
@@ -185,7 +199,7 @@ export function TanTable() {
             rowSelection: useStore(state => state.rowSelection),
         },
         enableRowSelection: true, //enable row selection for all rows
-        onRowSelectionChange: newSelection => useStore.getState().setRowSelection(newSelection),
+        //onRowSelectionChange: newSelection => useStore.getState().setRowSelection(newSelection),
         debugTable: true,
 
     })
@@ -198,6 +212,10 @@ export function TanTable() {
     const handleTdClick = (houseId) => {
         navigate(`/particular/${houseId}`);
     };
+
+    const handleBuscarTelefonosClick = async ()=>{
+
+    }
 
     if (status === 'loading') {
         return <span>Loading...</span>
@@ -212,6 +230,7 @@ export function TanTable() {
     }
     return (
         <div className={'search-block'}>
+            <input type="button" name="" id="" value={"Buscar telefonos"} onClick={handleBuscarTelefonosClick}/>
                 <div>
                 <AutoCompleteSelect options={localities} filters={filters} setValue={setFilters}
                                     optionFilterid={'localidad'}></AutoCompleteSelect>

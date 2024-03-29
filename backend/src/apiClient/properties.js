@@ -68,26 +68,25 @@ export const getProperties = async ({pagination, sorting, filters}) => {
 
 };
 
-export const getHashOfFilteredProperties = async ({ localidad, precioMin, precioMax, portal, abstenerse }) => {
+export const getHashOfFilteredProperties = async (filters) => {
     // Base URL
     let baseUrl = `http://164.90.182.86:3000/api/property/get-hash-of-filtered-properties`;
 
     // Inicializar un array para almacenar partes de la cadena de consulta
     let queryParams = [];
 
-    // Añadir parámetros de filtro si existen
-    if (localidad) queryParams.push(`localidad=${encodeURIComponent(localidad)}`);
-    if (precioMin) queryParams.push(`precioMin=${encodeURIComponent(precioMin)}`);
-    if (precioMax) queryParams.push(`precioMax=${encodeURIComponent(precioMax)}`);
-    if (portal) queryParams.push(`portal=${encodeURIComponent(portal)}`);
-    if (abstenerse !== undefined) queryParams.push(`abstenerse=${abstenerse ? 'true' : 'false'}`);
+    if(filters){
+        // Convertir el objeto JSON en una cadena
+        const sortingJSON = JSON.stringify(filters);
 
-    // Construir la URL completa uniendo los parámetros con '&'
-    // Solo añadir el '?' seguido de los parámetros si hay al menos un parámetro
-    let url = queryParams.length > 0 ? `${baseUrl}?${queryParams.join('&')}` : baseUrl;
+        // Codificar la cadena en Base64 usando Buffer
+        const sortingBase64 = btoa(encodeURIComponent(sortingJSON));
+        baseUrl += `?filters=${encodeURIComponent(sortingBase64)}`;
+    }
+
 
     try {
-        const response = await fetch(url);
+        const response = await fetch(baseUrl);
         if (!response.ok) {
             // Manejo de respuestas de error HTTP (por ejemplo, 404, 500)
             throw new Error("HTTP-Error: " + response.status);
