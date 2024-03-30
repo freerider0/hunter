@@ -7,6 +7,7 @@ import {TanTable} from "./components/tablas/TanTable.jsx";
 import AutoCompleteSelect from "./components/AutoCompleteSelect.jsx";
 import {useQuery} from "@tanstack/react-query";
 import {getLocalities, getPropertyTypes} from "./apiClient/dictionaries.js";
+import { Toaster } from 'react-hot-toast';
 
 
 function App() {
@@ -18,6 +19,8 @@ function App() {
     <>
 
       <TanTable></TanTable>
+        <Toaster></Toaster>
+
     </>
   )
 }

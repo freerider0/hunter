@@ -103,6 +103,7 @@ export const getHashOfFilteredProperties = async (filters) => {
 
 export const setPropertiesReadyForSearchForContactDetails = async (propertyHashesArray) => {
     console.log('sending...', propertyHashesArray)
+    const keysArray = Object.keys(propertyHashesArray);
     try {
         const url = 'http://164.90.182.86:3000/api/property/set-properties-ready-for-search-for-contact-details';
         const options = {
@@ -110,7 +111,7 @@ export const setPropertiesReadyForSearchForContactDetails = async (propertyHashe
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({platform_hashes: propertyHashesArray}), // Asume que el servidor espera un objeto con una clave "platform_hashes"
+            body: JSON.stringify(keysArray), // Asume que el servidor espera un objeto con una clave "platform_hashes"
         };
         const propertyDataResponse = await fetch(url, options);
         if (!propertyDataResponse.ok) {

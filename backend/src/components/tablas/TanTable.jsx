@@ -1,5 +1,6 @@
 import React, {forwardRef, useEffect, useMemo, useRef, useState} from 'react'
 import {useTranslation} from "react-i18next";
+import toast from 'react-hot-toast';
 
 
 import {
@@ -11,7 +12,11 @@ import {
 } from '@tanstack/react-table'
 import {useNavigate} from "react-router-dom";
 import {useQuery} from "@tanstack/react-query";
-import {getHashOfFilteredProperties, getProperties} from "../../apiClient/properties.js";
+import {
+    getHashOfFilteredProperties,
+    getProperties,
+    setPropertiesReadyForSearchForContactDetails
+} from "../../apiClient/properties.js";
 import {getLocalities, getPropertyTypes} from "../../apiClient/dictionaries.js";
 import '../../css/components/table.css'
 import AutoCompleteSelect from "../AutoCompleteSelect.jsx";
@@ -216,7 +221,8 @@ const handleToggleFullSelection = async ()=>{
     };
 
     const handleBuscarTelefonosClick = async ()=>{
-
+        await setPropertiesReadyForSearchForContactDetails(rowSelection)
+        toast.success('propieddes marcadas')
     }
 
     if (status === 'loading') {

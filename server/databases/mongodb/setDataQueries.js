@@ -2,7 +2,7 @@ import {getMongoDatabase} from "./client.js";
 
 export async function setPropertiesReadyForSearchForContactDetails(hashes) {
     try {
-
+        console.log(hashes)
         const db = await  getMongoDatabase('propdata');
 
         const coleccion = db.collection('property');
@@ -11,7 +11,7 @@ export async function setPropertiesReadyForSearchForContactDetails(hashes) {
 
         const updates = hashes.map(hash => {
             return coleccion.updateOne(
-                { 'listing.platform_hash': hash },
+                { '_id': hash },
                 { $set: { needLookForContactDetails: true } }
             );
         });
