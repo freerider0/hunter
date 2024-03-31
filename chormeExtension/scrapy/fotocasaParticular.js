@@ -23,7 +23,7 @@ async function doTheJob() {
         }
 
         await sleep(3000)
-        document.querySelector('#App > div.re-Page > main > div.re-LayoutContainer.re-LayoutContainer--large > div.re-ContentDetail-topContainer > section > div > div.re-ContactDetailFormContainer > div:nth-child(2) > div > form > div:nth-child(7) > button').click()
+        document.querySelector('#App > div.re-Page > main > div.re-LayoutContainer.re-LayoutContainer--large > div.re-ContentDetail-topContainer > section > div > div.re-ContactForm > form > button').click()
         await sleep(6000)
         document.querySelector('#modal-react-portal > div > div > div.sui-MoleculeModal-no-header > button').click()
         await sleep(3000)

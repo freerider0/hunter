@@ -13,6 +13,7 @@ import {
 import {FichaInmuebleParticular} from "./paginas/FichaInmuebleParticular.jsx";
 // import i18n (needs to be bundled ;))
 import './i18n/i18n.js';
+import {ListaLlamadas} from "./paginas/ListaLlamadas.jsx";
 
 const router = createBrowserRouter([
     {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
     {
         path: "/particular/:platformHash",
         element: <FichaInmuebleParticular />,
+    },
+    {
+        path: "/lista",
+        element: <ListaLlamadas />,
     },
 ]);
 

@@ -65,4 +65,23 @@ export const useStore = create((set, get) => ({
         });
     },
     clearSelection: () => set({ rowSelection: [] }),
+    pagination: {
+        pageIndex: 0,
+        pageSize: 10,
+    },
+    // Método para actualizar la paginación
+    // Método para actualizar la paginación manejando un updater funcional
+    setPagination: (paginationUpdater) =>
+        set((state) => {
+            // Determina el nuevo estado de la paginación evaluando el updater si es una función
+            const newPagination = typeof paginationUpdater === 'function'
+                ? paginationUpdater(state.pagination)
+                : paginationUpdater;
+
+            // Log para depuración
+            console.log("Actualizando paginación con:", newPagination);
+
+            // Retorna el nuevo estado
+            return { pagination: { ...state.pagination, ...newPagination } };
+        }),
 }));

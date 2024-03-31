@@ -28,6 +28,10 @@
       "js": ["./helpers/form.js" ,"yaencontre.js"]
     },
     {
+      "matches": ["*://*.idealista.com/*"],
+      "js": ["./helpers/form.js" ,"idealista.js"]
+    },
+    {
       "matches": ["*://*.pisos.com/*"],
       "js": ["./helpers/form.js" ,"pisos.js"]
     },

@@ -318,3 +318,26 @@ async function updateProperties() {
         console.error('Ocurrió un error al actualizar las propiedades:', err);
     }
 }
+
+
+export async function getPropertiesForCall() {
+
+    try {
+        // Conecta a la base de datos MongoDB
+        const db = await getMongoDatabase('propdata');
+        const collection = db.collection('property');
+
+        // Consulta todas las propiedades
+        const properties = await collection.find().toArray();
+
+        const query = {
+            phone: { $exists: true },
+            rejectionChance:0,
+            "listing.assetType": { $ne: "parkingSpace" } };
+
+        const documents = await collection.find(query).toArray();
+        return documents
+    } catch (err) {
+        console.error('Ocurrió un error al actualizar las propiedades:', err);
+    }
+}

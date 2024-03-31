@@ -21,28 +21,25 @@ const sendNameAndPhone = async (data) => {
 }
 let datos = {nombre: null, telefono:null, url:window.location.href}
 
-
 async function doTheJob() {
     await sleep(6000);
     // Llena los campos del formulario
     // Click en boton enviar
-    const botonContactar = document.querySelector('div.details__col-right > div.details__block.details-featured > div > div.details-featured__action-btns > div > button');
+    const botonContactar = document.querySelector('#contact-phones-container > a.see-phones-btn.icon-phone.hidden-contact-phones_link > span.hidden-contact-phones_text');
     botonContactar.click()
     await sleep(3000)
-    //Darle a ver el telefono
-    const verTelefono = document.querySelector('body > div.js-contact.modal__wrapper > div > div > div > div.contact__info > div.contact__advertiser-phone.u-hide.u-show--s1024 > span');
-    verTelefono.click()
-    await sleep(3000)
-    const telfonoElement = document.querySelector('body > div.js-contact.modal__wrapper > div > div > div > div.contact__info > div.contact__advertiser-phone.u-hide.u-show--s1024');
+    const telfonoElement = document.querySelector('#contact-phones-container > a.icon-phone.hidden-contact-phones_formatted-phone._mobilePhone');
     const telefono = telfonoElement.textContent || telfonoElement.innerText; // Obtenemos el contenido del elemento
     console.log('telefono', telefono)
 
-    const nombreElement = document.querySelector('body > div.js-contact.modal__wrapper > div > div > div > div.contact__info > div.contact__advertiser > div.contact__advertiser-name.u-hide.u-show--s1024');
+    const nombreElement = document.querySelector('#module-contact-container > section > div > div.ide-box-contact.module-contact-gray.contact-data-container > div.professional-name > span');
     const nombre = nombreElement.textContent || nombreElement.innerText; // Obtenemos el contenido del elemento
     datos.nombre = nombre
     datos.telefono = telefono
     console.log(datos)
     await sendNameAndPhone(datos)
+    ;
+
 }
 
-doTheJob().then(()=>console.log('enviado'));
+doTheJob().then(()=>{chrome.runtime.sendMessage({closeTab: true})});

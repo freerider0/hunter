@@ -21,6 +21,13 @@ chrome.runtime.onMessage.addListener (function (request, sender, sendResponse) {
         //borrarCookiesDeDominio(request.dominio);
     }
 });
+
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    if (request.closeTab) {
+        chrome.tabs.remove(sender.tab.id);
+    }
+});
+
 async function fetchAndOpenTab() {
     try {
         const response = await fetch('http://localhost:3000/next');
@@ -39,7 +46,7 @@ async function fetchAndOpenTab() {
 
 console.log('abkg background')
 // Ejemplo de cómo llamar a fetchAndOpenTab, podría ser en respuesta a un evento de la extensión
-fetchAndOpenTab();
+
 
 
 // Aquí, debes llamar a sendTabsInfo() en los momentos apropiados, como cuando se abre una nueva pestaña, se cierra una pestaña, etc.

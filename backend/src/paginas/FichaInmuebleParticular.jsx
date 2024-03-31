@@ -17,6 +17,7 @@ import {Precios} from "../components/fichaPropiedad/precios/Precios.jsx";
 import FeaturesCard from "../components/fichaPropiedad/featuresSection/FeaturesCard.jsx"; // Asegúrate de instalar react-icons si aún no lo has hecho
 import { GoogleMap, LoadScript } from '@react-google-maps/api';
 import SimilarPropertiesTable from "../components/tablas/SimilarPropertiesTable.jsx";
+import ContactForm from "../components/fichaPropiedad/forms/ContactForm.jsx";
 
 // Función para formatear fechas
 const formatDate = (date) => {
@@ -57,6 +58,8 @@ export const FichaInmuebleParticular = options => {
     return (
         <div class={'pagina'}>
             <input type={'button'} title={'Obtener teléfono'} value={'Obtener teléfono'}/>
+            <a href={data.listing.link} target={'_blank'}>Visitar la propiedad</a>
+            <ContactForm id={data._id}></ContactForm>
             {(data.listing.ad1 || data.listing.ad2 || data.listing.ad3) && <p>{`${data.listing.ad1 || ''}, ${data.listing.ad2 || ''}, ${data.listing.ad3 || ''}`.trim()}</p>}
             {data.listing.assetType && <span>{t(data.listing.assetType)}</span>} en {data.listing.addType && <span>{t(data.listing.addType)}</span>}, {data.listing.title && <span>{data.listing.title}</span>}
             {data.listing.addText && <p>{data.listing.addText}</p>}

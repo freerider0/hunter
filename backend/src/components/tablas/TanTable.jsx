@@ -54,10 +54,15 @@ export function TanTable() {
 
     const navigate = useNavigate()
     const columnHelper = createColumnHelper();
-    const [pagination, setPagination] = useState({
+    /*const [pagination, setPagination] = useState({
         pageIndex: 0, //initial page index
         pageSize: 10, //default page size
-    });
+    });*/
+    const { pagination, setPagination } = useStore((state) => ({
+        pagination: state.pagination,
+        setPagination: state.setPagination,
+    }));
+
     const [sorting, setSorting] = useState([]) // can set initial sorting state here
 
 
@@ -80,6 +85,18 @@ const handleToggleFullSelection = async ()=>{
         }
 }
 
+    // Manejador para cambiar la página
+    const handleChangePage = (pageIndex) => {
+        // Verifica los límites de la paginación
+        if (pageIndex >= 0 && pageIndex < totalPages) {
+            setPagination({ pageIndex });
+        }
+    };
+
+    // Manejador para cambiar el tamaño de la página
+    const handleChangePageSize = (pageSize) => {
+        setPagination({ pageSize, pageIndex: 0 }); // Reinicia a la página 0 al cambiar el tamaño de página
+    };
 
     const defaultData = React.useMemo(() => [], [])
     const columns = [
@@ -211,10 +228,7 @@ const handleToggleFullSelection = async ()=>{
 
     })
 
-    useEffect(() => {
-        // Reset to the first page, remembering that page indices are zero-based
-        table.setPageIndex(0); // This should navigate to the first page
-    }, [filters.localidad, table]);
+
 
     const handleTdClick = (houseId) => {
         navigate(`/particular/${houseId}`);

@@ -1,7 +1,23 @@
 export const getPropertyData = async (platformHash) => {
     try {
-        console.log('url', 'http://164.90.182.86:3000/api/property/' + platformHash)
-        const propertyDataResponse = await fetch('http://164.90.182.86:3000/api/property/' + platformHash);
+        console.log('url', 'http://127.0.0.1:3000/api/property/' + platformHash)
+        const propertyDataResponse = await fetch('http://127.0.0.1:3000/api/property/' + platformHash);
+        if (!propertyDataResponse.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const propertyData = await propertyDataResponse.json();
+        console.log(propertyData)
+        return propertyData;
+    } catch (error) {
+        console.error('Error fetching property data:', error);
+        throw error;
+    }
+};
+
+export const getCallList = async (platformHash) => {
+    try {
+        console.log('url', 'http://127.0.0.1:3000/api/property/' + platformHash)
+        const propertyDataResponse = await fetch('http://localhost:3000/api/property/get-properties-for-call');
         if (!propertyDataResponse.ok) {
             throw new Error('Network response was not ok');
         }
@@ -26,7 +42,7 @@ export const getProperties = async ({pagination, sorting, filters}) => {
     }
 
     // Base URL
-    let url = `http://164.90.182.86:3000/api/property/listing?limit=${itemsPerPageUrlParam}&page=${currentPageUrlParam}`;
+    let url = `http://127.0.0.1:3000/api/property/listing?limit=${itemsPerPageUrlParam}&page=${currentPageUrlParam}`;
 
     // Añadir parámetros de filtro si existen
 
@@ -70,7 +86,7 @@ export const getProperties = async ({pagination, sorting, filters}) => {
 
 export const getHashOfFilteredProperties = async (filters) => {
     // Base URL
-    let baseUrl = `http://164.90.182.86:3000/api/property/get-hash-of-filtered-properties`;
+    let baseUrl = `http://127.0.0.1:3000/api/property/get-hash-of-filtered-properties`;
 
     // Inicializar un array para almacenar partes de la cadena de consulta
     let queryParams = [];
@@ -105,7 +121,7 @@ export const setPropertiesReadyForSearchForContactDetails = async (propertyHashe
     console.log('sending...', propertyHashesArray)
     const keysArray = Object.keys(propertyHashesArray);
     try {
-        const url = 'http://164.90.182.86:3000/api/property/set-properties-ready-for-search-for-contact-details';
+        const url = 'http://127.0.0.1:3000/api/property/set-properties-ready-for-search-for-contact-details';
         const options = {
             method: 'POST',
             headers: {
@@ -124,6 +140,8 @@ export const setPropertiesReadyForSearchForContactDetails = async (propertyHashe
         throw error;
     }
 }
+
+
 
 
 
